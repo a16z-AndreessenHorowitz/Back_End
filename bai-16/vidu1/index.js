@@ -18,6 +18,13 @@ app.get('/products', (req, res) => {
     res.send("<h1>Trang danh sản phẩm</h1>")
    
 })
+app.get('/contact', (req, res) => {
+    res.render("contact.pug",{
+        title:"Trang liên hệ",
+        message:"Xin chao cac ban",
+    });
+   
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
