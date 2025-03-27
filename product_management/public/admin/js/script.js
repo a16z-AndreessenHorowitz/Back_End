@@ -114,7 +114,8 @@ if(formChangeMulti){
         // niếu return sẽ không chạy đoạn code phía dưới.
       }
     }
-    console.log(typeChange)
+    //end delte
+
 
     if(inputsChecked.length>0){
       let ids=[];
@@ -125,7 +126,22 @@ if(formChangeMulti){
       //Lấy ra input dc check thêm vào mảng
       inputsChecked.forEach(input=>{
         const id=input.getAttribute("value")//hoặc .value là dc 
-        ids.push(id)
+        
+          //Thay đổi vị trí
+            if(typeChange=="change-position"){
+              
+            //Hiện tại đang đứng ở các ô input, muốn lấy ra ô position thì nó phải ra ngoài bảng như kiểu ../input-position( có cha là thẻ tr)
+            const position=input.closest("tr").querySelector("input[name='position']").value//value update ngầm 
+            //closest() được dùng để tìm phần tử tổ tiên gần nhất (ancestor) của phần tử hiện tại khớp với bộ chọn CSS được cung cấp.
+            ids.push(`${id}-${position}`)
+            
+
+            }else{
+              ids.push(id)// không phải thì push vào như thường lệ
+            }
+          //end thay đổi vị trí
+
+        // ids.push(id)
       })
 
       //gán giá trị cho ô input form 
@@ -145,3 +161,19 @@ if(formChangeMulti){
 }
 
 // Form Change Multi 
+
+
+// Show Alert 
+const showAlert=document.querySelector("[show-alert]")
+if(showAlert){
+  const time=parseInt(showAlert.getAttribute("data-time"))
+
+  const closeAlert=showAlert.querySelector("[close-alert]")
+  setTimeout(() => {
+    showAlert.classList.add("alert-hidden")
+  }, time);
+  closeAlert.addEventListener("click",()=>{
+    showAlert.classList.add("alert-hidden")
+  })
+}
+// end show alert 

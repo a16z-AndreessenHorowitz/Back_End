@@ -3,6 +3,8 @@ const methodOverride = require('method-override')//method-override
 const bodyParser = require('body-parser')
 require ( 'dotenv' ) .config ()
 
+
+
 const database=require('./config/database')
 
 const systemConfig=require('./config/system.js')
@@ -22,8 +24,10 @@ app.use(methodOverride('_method')) //method-override
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
+
 app.set('views', './views')
 app.set('view engine', 'pug')
+
 
 
 // app local variables

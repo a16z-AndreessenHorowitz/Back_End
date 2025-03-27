@@ -1,6 +1,7 @@
 
 const Product=require("../../models/product.model")
 
+
 const filterStatusHeper=require("../../helpers/filterStatus")
 const searchHeper=require("../../helpers/search.js")
 const paginationHelper=require("../../helpers/pagiantion.js")
@@ -36,7 +37,7 @@ module.exports.index= async(req, res)=>{
 	
 	//Pagination
 	//Models
-    const products = await Product.find(find).limit(objectPagiantion.limitItems).skip(objectPagiantion.skip)
+    const products = await Product.find(find).sort({position: "desc"}).limit(objectPagiantion.limitItems).skip(objectPagiantion.skip)
 
    
 
@@ -48,12 +49,12 @@ module.exports.index= async(req, res)=>{
 		pagination:objectPagiantion
     })
 }
-// [PATCH] /admin/products/change-status/:status/:
+// [PATCH] /admin/products/change-status/:status/:id
 module.exports.changeStatus= async(req,res)=>{
-	console.log(req.params)
 	const status=req.params.status
 	const id =req.params.id
 	await Product.updateOne({ _id: id },{ status:status })   //update one thing
+
 	res.redirect("back") //chuyển hướng //back chuyển hướng đúng tại trang đó
 }
 
@@ -75,11 +76,20 @@ module.exports.changeMulti= async(req,res)=>{
 			await Product.updateMany({ _id : { $in: ids }},{deleted:true, deletedAt: new Date() })
 			//deletemany xoá nhiều, chúng ta xoá mềm thui
 			break;
+		case "change-position":
+			for(const item of ids){
+				// destructuring assignment (phân rã) trong JavaScript	
+				let [id, position]=item.split("-");
+				position=parseInt(position)
+				await Product.updateOne({_id:id},{ position: position})// update từng sản phẩm vì có nhiều vị trí khác nhau\
+			}
+			//Để nó hiện ra theo đúng vậy trí, quay lại phần [GET] /admin/products vì nó là nơi in ra giao diện
+			
 		default:
-		break;
+			break;
 
 	}
-	res.redirect("back") //chuyển hướng //back chuyển hướng đúng tại trang đó
+	res.redirect("back")
 }
 
 // [DELETE] /admin/products/change-status/:status/:
