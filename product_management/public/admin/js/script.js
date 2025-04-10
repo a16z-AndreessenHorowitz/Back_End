@@ -163,11 +163,10 @@ if(formChangeMulti){
 // Form Change Multi 
 
 
-// Show Alert 
+//Flash
 const showAlert=document.querySelector("[show-alert]")
 if(showAlert){
   const time=parseInt(showAlert.getAttribute("data-time"))
-
   const closeAlert=showAlert.querySelector("[close-alert]")
   setTimeout(() => {
     showAlert.classList.add("alert-hidden")
@@ -176,4 +175,30 @@ if(showAlert){
     showAlert.classList.add("alert-hidden")
   })
 }
-// end show alert 
+//end flash
+
+
+//Upload Image
+const uploadImage=document.querySelector("[upload-image]")
+if(uploadImage){
+  const uploadImageInput=document.querySelector("[upload-image-input]")
+  const uploadImageReview=document.querySelector("[upload-image-review]")
+
+  const buttonCloseImage=document.querySelector("[button-close-image]")
+  uploadImageInput.addEventListener("change",(e)=>{
+    const file=e.target.files[0]
+    
+    if(file){
+      buttonCloseImage.classList.remove("hidden")
+      uploadImageReview.src=URL.createObjectURL(file)
+
+      buttonCloseImage.addEventListener("click",()=>{
+        uploadImageInput.value=""
+        uploadImageReview.src=""
+        buttonCloseImage.classList.add("hidden")
+      })
+    }
+  })
+
+}
+//Upload Image

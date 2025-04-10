@@ -2,6 +2,8 @@ const express = require('express')
 const methodOverride = require('method-override')//method-override
 const bodyParser = require('body-parser')
 require ( 'dotenv' ) .config ()
+const session = require('express-session');
+const flash = require('express-flash');
 
 
 
@@ -25,16 +27,25 @@ app.use(methodOverride('_method')) //method-override
 app.use(bodyParser.urlencoded({ extended: false }))
 
 
-app.set('views', './views')
+app.use(express.static(`${__dirname}/public`));
+
+app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
 
-
+//flash
+app.use(session({
+  secret: 'MHUY231',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(flash());
+//end flash
 
 // app local variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin
 
 
-app.use(express.static("public"));
+
 
 routeAdmin(app)
 route(app)
