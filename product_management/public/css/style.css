@@ -88,4 +88,47 @@ text-align: center;
     border-radius: 8px;
 
 }
+/* Container của submenu */
+.sub-menu {
+    position: relative; /* Để ul con có thể được đặt tuyệt đối dựa trên nó */
+    z-index: 999;       /* Đảm bảo nó hiển thị trên các phần tử khác */
+}
 
+/* Menu con (dropdown) */
+.sub-menu ul {
+    position: absolute;  /* Đặt dropdown lệch khỏi phần tử cha */
+    top: 100%;           /* Ngay dưới phần tử cha */
+    right: 0;            /* Căn phải */
+    list-style: none;    /* Bỏ dấu chấm đầu dòng */
+    padding: 0;
+    margin: 0;
+    background-color: #eae9e9; /* Màu nền */
+    min-width: 180px;    /* Chiều rộng tối thiểu */
+    display: none;       /* Ẩn mặc định */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Tùy chọn: thêm bóng cho đẹp */
+}
+
+/* Mục trong submenu */
+.sub-menu ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer; /* Biểu tượng tay khi hover */
+    transition: background 0.2s;
+}
+
+/* Hover để hiển thị submenu */
+.sub-menu:hover > ul {
+    display: block;
+}
+
+.sub-menu ul li{
+    position: relative;
+
+}
+.sub-menu ul li ul{
+    right: 100%;
+    top:0;
+}
+.sub-menu ul li:hover > ul{
+   display: block;
+}
