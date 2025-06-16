@@ -26,7 +26,7 @@ module.exports.addPost=async (req, res)=>{
 
    await Cart.updateOne(
       { _id: cartId, "products.product_id": productId },
-      { $set: { "products.$.quantity": quantityNew } }
+      { $set: { "products.$.quantity": quantityNew} }
     );
     req.flash("info", "Đã cập nhật số lượng sản phẩm");
     res.redirect("back")
