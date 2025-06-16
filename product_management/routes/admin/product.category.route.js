@@ -12,13 +12,15 @@ const uploadCloud=require("../../middlewares/admin/uploadCloud.middleware.js")
 
 route.get("/",controller.index)
 
-route.get("/create",controller.create)
+
 
 route.patch("/change-status/:status/:id",controller.changeStatus)
 
 route.delete("/delete/:id",controller.deleteItem)
 
 route.patch("/change-multi",controller.changeMulti)
+route.get("/create",controller.create)
+
 //Khác nhau bởi phương thức
 route.post("/create",
   upload.single('thumbnail'),

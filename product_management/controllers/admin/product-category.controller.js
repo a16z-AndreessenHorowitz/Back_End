@@ -129,19 +129,25 @@ module.exports.changeMulti= async(req,res)=>{
 
 // [POST] /admin/products/create
 module.exports.createPost=async (req,res)=>{
-
-  if(req.body.position==""){
+  const permissons=res.locals.role.permissons
+    if(permissons.includes("products-category_create")){
+    if(req.body.position==""){
 		const countProducts=await ProductCateGory.countDocuments({}) 
-		req.body.position=countProducts+1;
-	 }
-	 else{
-		req.bod.position=parseInt(req.body.position)
-	 }
+      req.body.position=countProducts+1;
+    }
+    else{
+      req.bod.position=parseInt(req.body.position)
+    }
 
-   const record=await ProductCateGory(req.body)
-   await record.save()
+    const record=await ProductCateGory(req.body)
+    await record.save()
 
    res.redirect(`${systemConfig.prefixAdmin}/products-category`)
+  }else{
+    res.send("403")
+    return;
+  }
+  
 }
 
 
