@@ -102,5 +102,23 @@ module.exports.delete=async (req, res)=>{
 }
 
 
+// [GET] /cart/update/:productId/:quantity
+module.exports.update=async (req, res)=>{
+  const cardId=req.cookies.cartId
+  const productId=req.params.productId
+  const quantity=req.params.quantity
+  
+  await Cart.updateOne({
+    _id:cardId,
+    "products.product_id": productId,
+  },{
+    $set:
+    { "products.$.quantity":quantity }
+  })
+  req.flash("info","Đã cập nhật sản phẩm thành công!")
+  res.redirect("back")
+}
+
+
 
 
