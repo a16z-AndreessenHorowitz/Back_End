@@ -1,4 +1,4 @@
-console.log("ok")
+
 //Flash
 const showAlert=document.querySelector("[show-alert]")
 if(showAlert){

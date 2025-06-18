@@ -27,7 +27,7 @@ if(card.products.length>0){
 // Tông đơn hàng của tất cả các hàng
 card.totalPrice=card.products.reduce((sum,item)=>sum+item.totalPrice,0)
 
-console.log(card)
+// console.log(card)
 res.render("client/pages/cart/index.pug",{
   pageTitle:"Giỏ hàng",
   cardDetail: card
@@ -83,5 +83,24 @@ module.exports.addPost=async (req, res)=>{
   res.redirect("back");
   }
 }
+
+
+// [GET] /cart/delete/:productId
+module.exports.delete=async (req, res)=>{
+  const cardId=req.cookies.cartId
+  console.log(cardId)
+  const productId=req.params.productId
+
+  
+  await Cart.updateOne({
+    _id:cardId
+  },{
+    $pull: { products : { product_id: productId}}
+  })
+  req.flash("info","Đã xoá sản phẩm thành công!")
+  res.redirect("back")
+}
+
+
 
 
