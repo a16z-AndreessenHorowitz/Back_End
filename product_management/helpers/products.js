@@ -9,6 +9,6 @@ module.exports.priceNewProducts=(products)=>{
 // tính giá mới cho một sản phẩm
 
 module.exports.priceNewProduct=(product)=>{
-  const priceNew=((product.price*(100-product.discountPercentage)/100).toFixed(0))
+  const priceNew=parseInt((product.price*(100-product.discountPercentage)/100).toFixed(0))
   return priceNew
 }

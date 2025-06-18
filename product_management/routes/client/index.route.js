@@ -16,6 +16,6 @@ module.exports=(app)=>{
 
   app.use("/search",searchRoutes)
 
-    app.use("/cart",cartRoutes)
+  app.use("/cart",cartRoutes)
 
 }

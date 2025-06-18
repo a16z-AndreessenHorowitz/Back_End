@@ -1,6 +1,40 @@
-const { response } = require("express");
-const Cart=require("../../models/cart.model.js")
+const Cart=require("../../models/cart.model.js");
+const Product=require("../../models/product.model")
+const productHelper=require("../../helpers/products.js")
 // [GET] /cart/add/:productId
+module.exports.index=async (req,res)=>{
+const cartId=req.cookies.cartId
+
+const card=await Cart.findOne({
+  _id:cartId
+})
+
+if(card.products.length>0){
+  for (item of card.products){
+    const productId=item.product_id
+    const productInfo=await Product.findOne({
+          _id:productId,
+    }).select("title thumbnail slug price discountPercentage") //lấy theo các trường muốn chọn
+    productInfo.priceNew=productHelper.priceNewProduct(productInfo)
+    item.productInfo=productInfo
+    //tông tiền từng sản phẩm
+    item.totalPrice=productInfo.priceNew * item.quantity;
+    
+  }
+  
+}
+
+// Tông đơn hàng của tất cả các hàng
+card.totalPrice=card.products.reduce((sum,item)=>sum+item.totalPrice,0)
+
+console.log(card)
+res.render("client/pages/cart/index.pug",{
+  pageTitle:"Giỏ hàng",
+  cardDetail: card
+})
+}
+
+// [POST] /cart/add/:productId
 module.exports.addPost=async (req, res)=>{
  const productId=req.params.productId;
  const quantity=parseInt(req.body.quantity)
@@ -49,3 +83,5 @@ module.exports.addPost=async (req, res)=>{
   res.redirect("back");
   }
 }
+
+
