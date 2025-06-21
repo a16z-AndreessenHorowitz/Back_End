@@ -30,7 +30,7 @@ block main
                   td
                     img(src=item.productInfo.thumbnail alt=item.productInfo.title width="80px")
                   td
-                    a(href=`/products/detail/${item.productInfo.title}`) Sản phẩm 1
+                    a(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}
                   td #{item.productInfo.title}
                   td
                     input(
