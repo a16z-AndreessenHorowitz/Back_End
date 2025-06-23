@@ -71,3 +71,9 @@ res.cookie("tokenUser",user.tokenUser)
 res.redirect("/")
 }
 
+
+// [POST] /user/logout
+module.exports.logout= async(req, res)=>{
+  res.clearCookie("tokenUser")
+  res.redirect("/")
+}
