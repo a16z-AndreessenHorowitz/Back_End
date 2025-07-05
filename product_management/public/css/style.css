@@ -208,3 +208,90 @@ position:relative;
     cursor: pointer;
 }
 /* end flash  */
+
+/* chat  */
+/* Tổng thể phần chat */
+.inner-body {
+  padding: 20px;
+  background-color: #fff;
+  height: 400px;
+  overflow-y: auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Tên người gửi */
+.inner-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Tin nhắn đến (người khác) */
+.inner-incoming {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.inner-incoming .inner-content {
+  background-color: #f1f1f1;
+  color: #000;
+  padding: 10px 14px;
+  border-radius: 18px;
+  max-width: 70%;
+}
+
+/* Tin nhắn đi (của mình) */
+.inner-outgoing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 15px;
+}
+
+.inner-outgoing .inner-content {
+  background-color: #ff69b4; /* màu hồng */
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 18px;
+  max-width: 70%;
+}
+
+/* Form nhập nội dung ở cuối */
+.inner-foot {
+  border-top: 1px solid #ccc;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.inner-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.inner-form input[type="text"] {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+}
+
+.inner-form button {
+  background-color: #ff69b4;
+  border: none;
+  color: #fff;
+  padding: 10px 14px;
+  margin-left: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner-form button i {
+  font-size: 16px;
+}

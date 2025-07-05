@@ -1,4 +1,5 @@
 const express = require('express')
+const app = express();
 const methodOverride = require('method-override')//method-override
 const bodyParser = require('body-parser')
 require ( 'dotenv' ) .config ()
@@ -7,6 +8,9 @@ const flash = require('express-flash');
 const moment=require("moment")
 const path=require('path')
 const cookieParser = require('cookie-parser');
+const http = require('http');
+const server = http.createServer(app);
+
 
 
 const database=require('./config/database')
@@ -14,15 +18,22 @@ const database=require('./config/database')
 const systemConfig=require('./config/system.js')
 
 const routeAdmin=require("./routes/admin/index.route.js")
-const route=require("./routes/client/index.route.js")
+const route=require("./routes/client/index.route.js");
+const { resolveSoa } = require('dns');
 
 database.connect()
 
-const app = express()
+
 
 
 const port = process.env.PORT;
-
+// socket 
+const { Server } = require("socket.io");
+const io = new Server(server);
+io.on('connection', (socket) => {
+  console.log('a user connected',socket.id);
+})
+//end socker
 app.use(methodOverride('_method')) //method-override
 
 // parse application/x-www-form-urlencoded
@@ -56,8 +67,13 @@ app.locals.moment = moment
 
 routeAdmin(app)
 route(app)
+app.get("*",(req,res)=>{
+  res.render("client/pages/errors/404",{
+    pageTitle:"404 not found"
+  })
+})
 
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

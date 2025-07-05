@@ -2,7 +2,34 @@ extend ../../layouts/default
 
 block main
   h1 Trang tổng quan
-  div #{user}
-  div -----
-  div #{role.title}
-  div #{role.permissons}
+  .row.mt-4
+    .col-12
+      .card.mb-4
+        .card-header Thông tin tài khoản
+        .card-body
+          if (user.avatar)
+            img(src=user.avatar style="height: 100px; margin-bottom: 15px;")
+          
+          if (user.fullName)
+            p Họ tên: 
+              b= user.fullName
+          
+          if (user.email)
+            p Email: 
+              b= user.email
+          
+          if (user.phone)
+            p Số điện thoại: 
+              b= user.phone
+          
+          if (role.title)
+            p Phân quyền: 
+              b= role.title
+
+    .col-6 
+      .card.mb-4 
+        .card-header Danh mục sản phẩm
+        .card-body  
+          <p> Số lượng: <b> #{statistic.categoryProduct.total} </b> </p>
+          <p> Hoạt động: <b> #{statistic.categoryProduct.active} </b> </p>
+          <p>Dừng hoạt động :<b> #{statistic.categoryProduct.inactive} </b> </p>

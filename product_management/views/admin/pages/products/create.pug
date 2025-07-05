@@ -4,7 +4,7 @@ include ../../mixins/selectTree.pug
 
 block main 
   if(role.permissons.includes("products_create"))
-    +alert-error(5000)
+
     h1(class="mb-4") Thêm sản phẩm mới 
     
     form(action=`${prefixAdmin}/products/create` id="form-create-product" method="POST" enctype="multipart/form-data")

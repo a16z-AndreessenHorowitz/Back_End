@@ -1,7 +1,7 @@
 const express=require("express")
 const validate=require("../../validates/client/user.validate")
 const route=express.Router()
-
+const authMiddleware=require("../../middlewares/client/auth.middleware")
 const controller=require("../../controllers/client/user.controller")
 
 
@@ -26,5 +26,7 @@ route.post("/password/otp",controller.otpPasswordPost)
 route.get("/password/reset",controller.resetPassword)
 
 route.post("/password/reset",validate.resetPasswordPost,controller.resetPasswordPost)
+
+route.get("/info",authMiddleware.requireAuth,controller.info)//vì nó private
 
 module.exports=route
