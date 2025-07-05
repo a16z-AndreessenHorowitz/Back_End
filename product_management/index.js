@@ -30,9 +30,7 @@ const port = process.env.PORT;
 // socket 
 const { Server } = require("socket.io");
 const io = new Server(server);
-io.on('connection', (socket) => {
-  console.log('a user connected',socket.id);
-})
+global._io=io; //global là toàn cục của express
 //end socker
 app.use(methodOverride('_method')) //method-override
 
