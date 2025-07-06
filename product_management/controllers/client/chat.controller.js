@@ -4,6 +4,7 @@ const User=require("../../models/user.model")
 module.exports.index=async (req, res)=>{
   //lấy id
   const userId=res.locals.user.id
+  const fullName=res.locals.user.fullName
   // socket.io
   _io.once('connection', (socket) => {
     //sock nhận từ client
@@ -14,6 +15,14 @@ module.exports.index=async (req, res)=>{
         content:content
       })
       await chat.save();
+         //trả data về client
+    _io.emit("SERVER_RETURN_MESSAGE",{
+      fullName:fullName,
+      userId:userId,
+      content:content
+    })
+
+
     })
   })
   // end socket 
