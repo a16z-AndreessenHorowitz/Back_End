@@ -297,3 +297,13 @@ position:relative;
 .inner-form button i {
   font-size: 16px;
 }
+
+/* emoji icon  */
+.tooltip {
+  visibility: hidden;
+}
+.tooltip.shown{
+  opacity: 1;
+  visibility:visible;
+}
+/* emoji icon  */
